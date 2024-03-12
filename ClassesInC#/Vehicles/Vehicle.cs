@@ -61,5 +61,17 @@ namespace Vehicles
             }
         }
 
+        public virtual void ChangePrice(decimal amount = 0, string status = "increase")
+        {
+            if (status == "increase")
+            {
+                this.Price += amount;
+            }
+            else if (status == "discount")
+            {
+                this.Price -= amount;
+            }
+        }
+
     }
 }

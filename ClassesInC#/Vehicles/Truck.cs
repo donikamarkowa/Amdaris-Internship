@@ -10,5 +10,10 @@
         {
             Console.WriteLine($"Driving truck {this.Make} {this.Model}.");
         }
+
+        public override void ChangePrice(decimal amount, string status)
+        {
+            base.ChangePrice(amount, status);   
+        }
     }
 }

@@ -17,6 +17,12 @@
                 Console.WriteLine("The vehicle is truck.");
             }
 
+            audi.ChangePrice(amount: 2000, status: "increase");
+            audi.ChangePrice(30, status: "discount");
+
+            iveco.ChangePrice(1000, "increase");
+            iveco.ChangePrice(amount: 100, "discount");
+
             audi.PrintInfo(year: audi.Year, price: audi.Price);
             iveco.PrintInfo(iveco.Make, audi.Year, audi.Price);
 
