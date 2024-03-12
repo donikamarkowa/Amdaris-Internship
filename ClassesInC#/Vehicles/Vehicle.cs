@@ -3,7 +3,7 @@ using System.Xml.Schema;
 
 namespace Vehicles
 {
-    public class Vehicle
+    public abstract class Vehicle
     {
         private int seatsCount;
 
