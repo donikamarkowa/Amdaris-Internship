@@ -5,6 +5,7 @@ string text = @"In object-oriented programming, encapsulation is a fundamental p
 //- Display the word count of this string
 
 Console.WriteLine(text.Length);
+Console.WriteLine();
 
 //- Display the sentence count of this string
 var countOfSentences = text.Split(". ").Length;
