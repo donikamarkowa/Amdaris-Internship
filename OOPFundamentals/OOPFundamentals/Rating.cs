@@ -1,4 +1,6 @@
-﻿namespace OOPFundamentals
+﻿using System;
+
+namespace OOPFundamentalsDiagram
 {
     public class Rating
     {
@@ -7,5 +9,6 @@
         public string WorkoutRaiting { get; set; } = null!;
         public string Comment { get; set; } = null!;
         public DateTime Date { get; set; }
+        public int TrainingId { get; set; }
     }
 }
