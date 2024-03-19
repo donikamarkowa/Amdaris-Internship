@@ -1,4 +1,4 @@
-﻿namespace Assignment
+﻿namespace Assignment.Classes
 {
     internal class Book
     {

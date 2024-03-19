@@ -1,4 +1,6 @@
-﻿namespace Assignment
+﻿using Assignment.Classes;
+
+namespace Assignment
 {
     internal class Program
     {
@@ -36,14 +38,18 @@
                 (book, author) => new { BookTitle = book.Title, AuthorName = author.Name });
 
             //GroupJoin method
-            //var groupJoin = authors.GroupJoin(books,
-            //    author => author.Name,
-            //    book => book,
-            //    (author, book) => new { AuthorName = author.Name, BookTitle = book });
+            var groupJoin2 = books.GroupJoin(authors,
+                book => book.Author,
+                author => author.Name,
+                (book, author) => new { BookTitle = book.Title, Authors = author });
 
-            //foreach (var b in groupJoin)
+            //foreach (var b in groupJoin2)
             //{
-            //    Console.WriteLine($"Book Title: {b.BookTitle}, Author: {b.AuthorName}");
+            //    Console.WriteLine($"Book Title: {b.BookTitle}");
+            //    foreach (var author in b.Authors)
+            //    {
+            //        Console.WriteLine($"Author: {author.Name}");
+            //    }
             //}
 
 
@@ -118,9 +124,31 @@
             ILookup<char, string> lookup = packages
                 .ToLookup(p => p.Owner[0], p => p.Owner + " " + p.TrackingNum);
 
-            //AsEnumerable 
+            //AsEnumerable - convert/cast specific types of given list to its IEnumerable equivalent type
+            int[] numArray = { 1, 2, 3, 4, 5 };
+            var numArrayAsEnumerable = numArray.AsEnumerable();
 
-            //AsQueryable 
+            //AsQueryable - convert input list elements to IQueryable<T> list
+            Student student1 = new Student()
+            {
+                Name = "Johanna Hayes",
+                Gender = "Female"
+            };
+            Student student2 = new Student()
+            {
+                Name = "Thomas Lindgren",
+                Gender = "Male"
+            };
+            Student student3 = new Student()
+            {
+                Name = "Debbie Ellis",
+                Gender = "Female"
+            };
+            List<Student> students = new List<Student>() { student1, student2, student3 };
+
+            IQueryable<Student> studentsQuery = students
+                .AsQueryable()
+                .Where(s => s.Name.Contains("o")); //Johanna Hayes, Thomas Lindgren
 
             //Count - returns int
             string[] vegetables = { "tomato", "carrot", "cucumber", "potato" };
@@ -192,10 +220,19 @@
             //DefaultIfEmpty
             List<int> emptyList = new List<int>();
 
-            foreach (int number in numbers.DefaultIfEmpty())
-            {
-                Console.WriteLine(number);
-            }
+            //foreach (int number in numbers.DefaultIfEmpty())
+            //{
+            //    Console.WriteLine(number);
+            //}
+
+            //Empty
+            IEnumerable<string> emptyCollection = Enumerable.Empty<string>(); //emptyCollection.Count() == 0
+
+            //Repeat
+            IEnumerable<string> repeatString = Enumerable.Repeat("Hello!", 3);
+
+            //Range
+            IEnumerable<int> rangeNumbers = Enumerable.Range(1, 10);
 
 
         }
