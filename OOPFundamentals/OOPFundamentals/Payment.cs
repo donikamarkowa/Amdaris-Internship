@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OOPFundamentals;
+using System;
 
 namespace OOPFundamentalsDiagram
 {
@@ -6,7 +7,7 @@ namespace OOPFundamentalsDiagram
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public int WokroutId { get; set; }
+        public Workout Workout { get; set; } = null!;
         public DateTime PaymentDate { get; set; }
         public decimal Amount { get; set; }
         public string PaymentMethod { get; set; } = null!;

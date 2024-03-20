@@ -1,14 +1,13 @@
-﻿using System;
+﻿using OOPFundamentals;
 
 namespace OOPFundamentalsDiagram
 {
     public class Rating
     {
         public int Id { get; set; }
-        public string User { get; set; } = null!;
-        public string WorkoutRaiting { get; set; } = null!;
-        public string Comment { get; set; } = null!;
+        public User User { get; set; } = null!;
+        public Rating Raiting { get; set; } = null!;
         public DateTime Date { get; set; }
-        public int TrainingId { get; set; }
+        public Workout Workout { get; set; } = null!;
     }
 }
