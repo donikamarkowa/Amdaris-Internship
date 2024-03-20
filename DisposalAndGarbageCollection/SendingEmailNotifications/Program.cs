@@ -4,7 +4,7 @@
     using System.Net.Mail;
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             try
             {
@@ -21,7 +21,7 @@
                 string smtpServer = "smtp.gmail.com";
                 int port = 587;
 
-                SendEmail(recipientEmail, smtpServer, port, senderEmail, senderPass);
+                await SendEmail(recipientEmail, smtpServer, port, senderEmail, senderPass);
 
                 Console.WriteLine("Email sent successfully!");
             }
@@ -34,7 +34,7 @@
 
         }
 
-        static void SendEmail(string recipientEmail, string smtpServer, int port, string senderEmail, string senderPassword)
+        static async Task SendEmail(string recipientEmail, string smtpServer, int port, string senderEmail, string senderPassword)
         {
             using (SmtpClient smtpClient = new SmtpClient(smtpServer, port))
             {
@@ -48,7 +48,7 @@
                     mailMessage.To.Add(recipientEmail);
                     mailMessage.Subject = "Welcome to our newsletter community!";
                     mailMessage.Body = "Thank you for subscribing to our newsletter!";
-                    smtpClient.Send(mailMessage);
+                    await smtpClient.SendMailAsync(mailMessage);
                 }
             }
         }
