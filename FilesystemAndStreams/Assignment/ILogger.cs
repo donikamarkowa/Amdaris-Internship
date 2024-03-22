@@ -1,4 +1,4 @@
-﻿namespace Assignment.Interfaces
+﻿namespace Assignment
 {
     internal interface ILogger
     {

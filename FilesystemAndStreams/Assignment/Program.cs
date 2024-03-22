@@ -5,7 +5,7 @@
         static async Task Main(string[] args)
         {
             string logDirectory = $"{Environment.CurrentDirectory}";
-            Logger logger = new Logger(logDirectory);
+            var logger = new Logger(logDirectory);
 
             Person person = new Person("Test", 34, "0897654435", logger);
             try

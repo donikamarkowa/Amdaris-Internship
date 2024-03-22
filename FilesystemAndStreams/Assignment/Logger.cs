@@ -1,13 +1,11 @@
-﻿using Assignment.Interfaces;
-
-namespace Assignment
+﻿namespace Assignment
 {
     internal class Logger : ILogger
     {
         private readonly string _logDirectory;
         public Logger(string logDirectory)
         {
-            this._logDirectory = logDirectory;
+            _logDirectory = logDirectory;
         }
         public async Task LogAsync(string method, bool outcome)
         {
@@ -40,4 +38,4 @@ namespace Assignment
 
         }
     }
-    }
+}

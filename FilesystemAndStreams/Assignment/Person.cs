@@ -1,6 +1,4 @@
-﻿using Assignment.Interfaces;
-
-namespace Assignment
+﻿namespace Assignment
 {
     internal class Person
     {
