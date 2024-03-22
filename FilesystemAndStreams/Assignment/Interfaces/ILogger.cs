@@ -2,6 +2,6 @@
 {
     internal interface ILogger
     {
-        Task<string> LogAsync(string method, string outcome);
+        Task LogAsync(string method, bool outcome);
     }
 }

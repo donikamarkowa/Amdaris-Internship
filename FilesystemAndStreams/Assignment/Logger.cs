@@ -1,5 +1,4 @@
 ﻿using Assignment.Interfaces;
-using System.Text;
 
 namespace Assignment
 {
@@ -10,7 +9,7 @@ namespace Assignment
         {
             this._logDirectory = logDirectory;
         }
-        public async Task<string> LogAsync(string method, string outcome)
+        public async Task LogAsync(string method, bool outcome)
         {
             try
             {
@@ -20,17 +19,25 @@ namespace Assignment
                 string logFilePath = Path.Combine(_logDirectory, logFileName);
                 string logMessage = $"{DateTime.Now:dd-MM-yyyy HH-mm}, Method: {method}, Outcome: {outcome}";
 
+                if (!File.Exists(logFilePath))
+                {
+                    using (StreamWriter writer = File.CreateText(logFilePath))
+                    {
+                        await writer.WriteLineAsync($"Log file created on {DateTime.Now:dd-MM-yyyy HH-mm}");
+                    }
+                }
+
                 using (StreamWriter streamWriter = new StreamWriter(logFilePath, true))
                 {
                     await streamWriter.WriteLineAsync(logMessage);
-                    return "Log written successfully!";
+                    Console.WriteLine("Log written successfully!");
                 }
             }
             catch (Exception ex)
             {
-                return $"Error writing to log file: {ex.Message}";
+                Console.WriteLine($"Error writing to log file: {ex.Message}");
             }
 
         }
     }
-}
+    }
