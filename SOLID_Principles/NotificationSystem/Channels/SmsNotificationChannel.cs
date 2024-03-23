@@ -1,10 +1,17 @@
-﻿namespace NotificationSystem.Channels
+﻿using NotificationSystem.Notifications;
+
+namespace NotificationSystem.Channels
 {
-    public class SmsNotificationChannel : INotificationChannel
+    public class SmsNotificationChannel : NotificationChannel
     {
-        public void SendNotification(User sender, User recipient, string subject, string message)
+        public override void SendNotification(User sender, User recipient, string message, string subject)
         {
-            Console.WriteLine($"Sending SMS notification from {sender.Username} to {recipient.Username} with Subject: {subject}. Message: {message}");
+            base.SendNotification(sender, recipient, message, subject);
+
+            var newNotification = new SmsNotification(sender, recipient, sender.PhoneNumber, message);
+
+            recipient.SmsNotification.Add(newNotification);
+            Console.WriteLine(newNotification.Information());
         }
     }
 }

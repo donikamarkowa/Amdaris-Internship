@@ -1,10 +1,17 @@
-﻿namespace NotificationSystem.Channels
+﻿using NotificationSystem.Notifications;
+
+namespace NotificationSystem.Channels
 {
-    public class PushNotificationChannel : INotificationChannel
+    public class PushNotificationChannel : NotificationChannel
     {
-        public void SendNotification(User sender, User recipient, string subject, string message)
+        public override void SendNotification(User sender, User recipient, string message, string subject)
         {
-            Console.WriteLine($"Sending push notification from {sender.Username} to {recipient.Username}. Message: {message}");
+            base.SendNotification(sender, recipient, message, subject);
+
+            var newNotification = new PushNotification(sender, message);
+
+            recipient.PushNotification.Add(newNotification);
+            Console.WriteLine(newNotification.Information());
         }
     }
 }

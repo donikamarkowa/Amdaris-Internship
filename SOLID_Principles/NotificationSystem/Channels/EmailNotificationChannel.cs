@@ -1,10 +1,18 @@
-﻿namespace NotificationSystem.Channels
+﻿using NotificationSystem.Notifications;
+
+namespace NotificationSystem.Channels
 {
-    public class EmailNotificationChannel : INotificationChannel
+    public class EmailNotificationChannel : NotificationChannel
     {
-        public void SendNotification(User sender, User recipient, string message, string subject)
+        public override void SendNotification(User sender, User recipient, string message, string subject)
         {
-            Console.WriteLine($"Sending email notification from {sender.Email} to {recipient.Email} with Subject: {subject}. Message: {message}");
+            base.SendNotification(sender, recipient, message, subject);
+
+            var newNotification = new EmailNotification(sender, recipient, subject, message);
+            recipient.EmailNotifications.Add(newNotification);
+
+            Console.WriteLine(newNotification.Information());
         }
     }
+        
 }
