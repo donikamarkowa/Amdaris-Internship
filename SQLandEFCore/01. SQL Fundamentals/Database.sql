@@ -1,4 +1,4 @@
-CREATE DATABASE SQLFundamentals
+--CREATE DATABASE SQLFundamentals
 
 USE SQLFundamentals
 
@@ -6,22 +6,16 @@ CREATE TABLE [Users](
 	[Id] INT PRIMARY KEY IDENTITY,
 	[Name] NVARCHAR(100) NOT NULL,
 	[Age] INT NOT NULL, 
-	[Gender] NVARCHAR(5) NOT NULL,
+	[Gender] NVARCHAR(5),
 	[Email] NVARCHAR(100) NOT NULL,
+	[Bio] NVARCHAR(1000),
 	[PhoneNumber] NVARCHAR(20) NOT NULL,
-	[Weight] FLOAT NOT NULL,
-	[Height] FLOAT NOT NULL
+	[Weight] FLOAT,
+	[Height] FLOAT,
+	[Picture] NVARCHAR(500),
+	[Rating] INT, 
 )
 
-CREATE TABLE [Trainers](
-	[Id] INT PRIMARY KEY IDENTITY,
-	[Name] NVARCHAR(100) NOT NULL,
-	[Age] INT NOT NULL, 
-	[Bio] NVARCHAR(1000) NOT NULL,
-	[Picture] NVARCHAR(500) NOT NULL,
-	[Rating] INT, 
-	[PhoneNumber] NVARCHAR (20) NOT NULL
-)
 
 CREATE TABLE [Locations](
 	[Id] INT PRIMARY KEY IDENTITY,
@@ -91,10 +85,15 @@ CREATE TABLE [Tags](
 	[Name] NVARCHAR(30) NOT NULL
 )
 
+CREATE TABLE [Roles](
+	[Id] INT PRIMARY KEY IDENTITY,
+	[Name] NVARCHAR(30) NOT NULL
+)
+
 CREATE TABLE [WorkoutsTrainersMapping](
 	[WorkoutId] INT NOT NULL FOREIGN KEY REFERENCES [Workouts]([Id]),
-	[TrainerId] INT NOT NULL FOREIGN KEY REFERENCES [Trainers]([Id]),
-    PRIMARY KEY ([WorkoutId], [TrainerId])
+	[UserId] INT NOT NULL FOREIGN KEY REFERENCES [Users]([Id]),
+    PRIMARY KEY ([WorkoutId], [UserId])
 )
 
 CREATE TABLE [WorkoutsSchedulesMapping](
