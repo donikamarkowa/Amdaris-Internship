@@ -47,6 +47,7 @@ CREATE TABLE [Workouts](
 	[Gender] NVARCHAR(20) NOT NULL,
 	[IntensityLevel] INT NOT NULL,
 	[MaxCapacity] INT NOT NULL,
+	[Status] NVARCHAR NOT NULL,
 	[Picture] NVARCHAR(200),
 	[Price] MONEY NOT NULL,
 	[WorkoutCategoryId] INT NOT NULL FOREIGN KEY REFERENCES [WorkoutCategories]([Id]),
