@@ -114,3 +114,9 @@ CREATE TABLE [WorkoutsTagMapping](
 	[TagId] INT NOT NULL FOREIGN KEY REFERENCES [Tags]([Id]),
     PRIMARY KEY ([WorkoutId], [TagId])
 )
+
+CREATE TABLE [UsersRolesMapping](
+	[UserId] INT NOT NULL FOREIGN KEY REFERENCES [Users]([Id]),
+	[RoleId] INT NOT NULL FOREIGN KEY REFERENCES [Roles]([Id]),
+    PRIMARY KEY ([UserId], [RoleId])
+)
