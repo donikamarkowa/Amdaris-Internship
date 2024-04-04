@@ -17,11 +17,13 @@ CREATE TABLE [Users](
 )
 
 
-CREATE TABLE [Locations](
+CREATE TABLE [Locations](-- office floor 1 / office floor 2
 	[Id] INT PRIMARY KEY IDENTITY,
 	[City] NVARCHAR(100) NOT NULL,
 	[Region] NVARCHAR(100) NOT NULL,
 	[Street] NVARCHAR(100) NOT NULL,
+	[Latitude] NVARCHAR(20) NOT NULL,
+	[Longitude] NVARCHAR(20) NOT NULL,
 	[Number] INT,
 	[ZIPCode] NVARCHAR(100) NOT NULL
 )
@@ -29,7 +31,9 @@ CREATE TABLE [Locations](
 CREATE TABLE [Schedules](
 	[Id] INT PRIMARY KEY IDENTITY,
 	[Date] DATETIME NOT NULL,
-	[LocationId] INT NOT NULL FOREIGN KEY REFERENCES [Locations]([Id])
+	[UserId] INT NOT NULL FOREIGN KEY REFERENCES [Users]([Id]), --Trainer
+	[WorkoutId] INT NOT NULL FOREIGN KEY REFERENCES [Workouts]([Id]),
+	[LocationId] INT NOT NULL FOREIGN KEY REFERENCES [Locations]([Id]) -- office floor 2
 )
 
 
@@ -54,28 +58,12 @@ CREATE TABLE [Workouts](
 	[RecommendedFrequency] NVARCHAR(50),
 )
 
-CREATE TABLE [Payments](
-	[Id] INT PRIMARY KEY IDENTITY,
-	[Amount] MONEY NOT NULL,
-	[Date] DATETIME,
-	[Method] NVARCHAR(50) NOT NULL,
-	[UserId] INT NOT NULL FOREIGN KEY REFERENCES [Users]([Id]),
-	[WorkoutId] INT NOT NULL FOREIGN KEY REFERENCES [Workouts]([Id]),
-)
 
 CREATE TABLE [Ratings](
 	[Id] INT PRIMARY KEY IDENTITY,
 	[Date] DATETIME DEFAULT GETDATE(),
-	[Rating] INT NOT NULL CHECK ([Rating] >= 1 AND [Rating] <= 5),
-	[UserId] INT NOT NULL FOREIGN KEY REFERENCES [Users]([Id]),
-	[WorkoutId] INT NOT NULL FOREIGN KEY REFERENCES [Workouts]([Id]),
-
-)
-
-CREATE TABLE [Comments](
-	[Id] INT PRIMARY KEY IDENTITY,
-	[Content] NVARCHAR(500) NOT NULL,
-	[Date] DATETIME NOT NULL,
+	[Rating] INT CHECK ([Rating] >= 1 AND [Rating] <= 5),
+	[Comment] NVARCHAR(1000),
 	[UserId] INT NOT NULL FOREIGN KEY REFERENCES [Users]([Id]),
 	[WorkoutId] INT NOT NULL FOREIGN KEY REFERENCES [Workouts]([Id]),
 )
@@ -88,7 +76,15 @@ CREATE TABLE [Tags](
 
 CREATE TABLE [Roles](
 	[Id] INT PRIMARY KEY IDENTITY,
-	[Name] NVARCHAR(30) NOT NULL
+	[Name] NVARCHAR(30) NOT NULL,
+	[Description] NVARCHAR(1000) NOT NULL,
+)
+
+CREATE TABLE [Booking](
+	[Id] INT PRIMARY KEY IDENTITY,
+	[WorkoutId] INT NOT NULL FOREIGN KEY REFERENCES [Workouts]([Id]),
+	[LocationId] INT NOT NULL FOREIGN KEY REFERENCES [Locations]([Id]),
+	[ScheduleId] INT NOT NULL FOREIGN KEY REFERENCES [Schedules]([Id])
 )
 
 CREATE TABLE [WorkoutsTrainersMapping](
@@ -103,13 +99,13 @@ CREATE TABLE [WorkoutsSchedulesMapping](
     PRIMARY KEY ([WorkoutId], [ScheduleId])
 )
 
-CREATE TABLE [LocationsWorkoustMapping](
+CREATE TABLE [LocationsWorkoutsMapping](
 	[WorkoutId] INT NOT NULL FOREIGN KEY REFERENCES [Workouts]([Id]),
 	[LocationId] INT NOT NULL FOREIGN KEY REFERENCES [Locations]([Id]),
     PRIMARY KEY ([WorkoutId], [LocationId])
 )
 
-CREATE TABLE [WorkoutsTagMapping](
+CREATE TABLE [WorkoutsTagsMapping](
 	[WorkoutId] INT NOT NULL FOREIGN KEY REFERENCES [Workouts]([Id]),
 	[TagId] INT NOT NULL FOREIGN KEY REFERENCES [Tags]([Id]),
     PRIMARY KEY ([WorkoutId], [TagId])
