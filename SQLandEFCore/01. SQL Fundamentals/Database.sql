@@ -2,6 +2,12 @@
 
 USE SQLFundamentals
 
+CREATE TABLE [Roles](
+	[Id] INT PRIMARY KEY IDENTITY,
+	[Name] NVARCHAR(30) NOT NULL,
+	[Description] NVARCHAR(1000) NOT NULL,
+)
+
 CREATE TABLE [Users](
 	[Id] INT PRIMARY KEY IDENTITY,
 	[Name] NVARCHAR(100) NOT NULL,
@@ -14,6 +20,7 @@ CREATE TABLE [Users](
 	[Height] FLOAT,
 	[Picture] NVARCHAR(500),
 	[Rating] INT, 
+	[RoleID] INT NOT NULL FOREIGN KEY REFERENCES [Roles]([Id])
 )
 
 
@@ -32,7 +39,6 @@ CREATE TABLE [Schedules](
 	[Id] INT PRIMARY KEY IDENTITY,
 	[Date] DATETIME NOT NULL,
 	[UserId] INT NOT NULL FOREIGN KEY REFERENCES [Users]([Id]), --Trainer
-	[WorkoutId] INT NOT NULL FOREIGN KEY REFERENCES [Workouts]([Id]),
 	[LocationId] INT NOT NULL FOREIGN KEY REFERENCES [Locations]([Id]) -- office floor 2
 )
 
@@ -54,8 +60,8 @@ CREATE TABLE [Workouts](
 	[Status] NVARCHAR NOT NULL,
 	[Picture] NVARCHAR(200),
 	[Price] MONEY NOT NULL,
-	[WorkoutCategoryId] INT NOT NULL FOREIGN KEY REFERENCES [WorkoutCategories]([Id]),
 	[RecommendedFrequency] NVARCHAR(50),
+	[WorkoutCategoryId] INT NOT NULL FOREIGN KEY REFERENCES [WorkoutCategories]([Id])
 )
 
 
@@ -74,17 +80,19 @@ CREATE TABLE [Tags](
 	[Name] NVARCHAR(30) NOT NULL
 )
 
-CREATE TABLE [Roles](
+CREATE TABLE [Bookings](
 	[Id] INT PRIMARY KEY IDENTITY,
-	[Name] NVARCHAR(30) NOT NULL,
-	[Description] NVARCHAR(1000) NOT NULL,
-)
-
-CREATE TABLE [Booking](
-	[Id] INT PRIMARY KEY IDENTITY,
+	[CountPeople] INT NOT NULL,
 	[WorkoutId] INT NOT NULL FOREIGN KEY REFERENCES [Workouts]([Id]),
 	[LocationId] INT NOT NULL FOREIGN KEY REFERENCES [Locations]([Id]),
-	[ScheduleId] INT NOT NULL FOREIGN KEY REFERENCES [Schedules]([Id])
+	[ScheduleId] INT NOT NULL FOREIGN KEY REFERENCES [Schedules]([Id]),
+	[UserId] INT NOT NULL FOREIGN KEY REFERENCES [Users]([Id])
+)
+
+CREATE TABLE [BookingsUsersMapping](
+	[BookingId] INT NOT NULL FOREIGN KEY REFERENCES [Bookings]([Id]),
+	[UserId] INT NOT NULL FOREIGN KEY REFERENCES [Users]([Id]),
+    PRIMARY KEY ([BookingId], [UserId])
 )
 
 CREATE TABLE [WorkoutsTrainersMapping](
@@ -111,8 +119,4 @@ CREATE TABLE [WorkoutsTagsMapping](
     PRIMARY KEY ([WorkoutId], [TagId])
 )
 
-CREATE TABLE [UsersRolesMapping](
-	[UserId] INT NOT NULL FOREIGN KEY REFERENCES [Users]([Id]),
-	[RoleId] INT NOT NULL FOREIGN KEY REFERENCES [Roles]([Id]),
-    PRIMARY KEY ([UserId], [RoleId])
-)
+
