@@ -95,7 +95,9 @@ CREATE TABLE [BookingsUsersMapping](
     PRIMARY KEY ([BookingId], [UserId])
 )
 
-CREATE TABLE [WorkoutsTrainersMapping](
+
+--WorkoutTrainersMapping
+CREATE TABLE [WorkoutsUsersMapping](
 	[WorkoutId] INT NOT NULL FOREIGN KEY REFERENCES [Workouts]([Id]),
 	[UserId] INT NOT NULL FOREIGN KEY REFERENCES [Users]([Id]),
     PRIMARY KEY ([WorkoutId], [UserId])
