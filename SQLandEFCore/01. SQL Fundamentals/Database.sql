@@ -24,7 +24,7 @@ CREATE TABLE [Users](
 )
 
 
-CREATE TABLE [Locations](-- office floor 1 / office floor 2
+CREATE TABLE [Locations]( -- office floor 1 / office floor 2
 	[Id] INT PRIMARY KEY IDENTITY,
 	[City] NVARCHAR(100) NOT NULL,
 	[Region] NVARCHAR(100) NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE [WorkoutCategories](
 
 CREATE TABLE [Workouts](
 	[Id] INT PRIMARY KEY IDENTITY,
-	[Title] NVARCHAR(100) NOT NULL, -- yoga, mladost 1, bl.
+	[Title] NVARCHAR(100) NOT NULL, -- yoga, mladost 1, bl. 8
 	[Description] NVARCHAR(1000) NOT NULL,
 	[EquipmentNeeded] NVARCHAR(100),
 	[Duration] DATETIME NOT NULL,
