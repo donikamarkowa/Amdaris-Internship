@@ -42,7 +42,8 @@ CREATE TABLE [Schedules](
 	[Date] DATETIME NOT NULL,
 	[Capacity] INT NOT NULL,
 	[UserId] INT NOT NULL FOREIGN KEY REFERENCES [Users]([Id]), --Trainer
-	[LocationId] INT NOT NULL FOREIGN KEY REFERENCES [Locations]([Id]) -- office floor 2
+	[LocationId] INT NOT NULL FOREIGN KEY REFERENCES [Locations]([Id]), -- office floor 2,
+	[WorkoutId] INT NOT NULL FOREIGN KEY REFERENCES [Workouts]([Id])
 )
 
 
@@ -84,7 +85,7 @@ CREATE TABLE [Tags](
 
 CREATE TABLE [Bookings](
 	[Id] INT PRIMARY KEY IDENTITY,
-	--[WorkoutId] INT NOT NULL FOREIGN KEY REFERENCES [Workouts]([Id]),
+	[WorkoutId] INT NOT NULL FOREIGN KEY REFERENCES [Workouts]([Id]),
 	[ScheduleId] INT NOT NULL FOREIGN KEY REFERENCES [Schedules]([Id]),
 	[UserId] INT NOT NULL FOREIGN KEY REFERENCES [Users]([Id])
 )
