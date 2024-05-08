@@ -28,7 +28,7 @@ CREATE TABLE [Locations]( -- office floor 1 / office floor 2
 	[Id] INT PRIMARY KEY IDENTITY,
 	[City] NVARCHAR(100) NOT NULL,
 	[Region] NVARCHAR(100) NOT NULL,
-	[Street] NVARCHAR(100) NOT NULL,
+	[Address] NVARCHAR(100) NOT NULL,
 	[Latitude] NVARCHAR(20) NOT NULL,
 	[Longitude] NVARCHAR(20) NOT NULL,
 	[Number] INT,
